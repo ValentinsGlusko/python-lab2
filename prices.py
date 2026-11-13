@@ -29,20 +29,23 @@ inventory = {
     "SKU_105": {"name": "Protein Shaker", "price": 15.00, "stock_count": 0, "category": "Fitness"},
 }
 
-def check_conditions(input_dict : dict , category : str) -> dict:
+def check_conditions(input_dict: dict, category: str) -> dict:
     last_sold_checked = last_sold(input_dict)
+
     for items in last_sold_checked.values():
         if items["stock_count"] == 0:
             items["restock_urgent"] = True
-            continue
-    if items["category".lower()] == category.lower():
-        items["price"] = update_price(items["price"], 1.10)
-        print("price updated")
-    return last_sold_checked       
+
+        if items["category"].lower() == category.lower():
+            items["price"] = update_price(items["price"], 10)
+            print("price updated")
+
+    return last_sold_checked      
 
 
-dict = check_conditions(inventory, "Electronics")
-print()
+result = check_conditions(inventory, "Electronics")
+for i in result:
+    print(i)
  
 # for items in inventory.values():
 #     if items["stock_count"] == 0:
